@@ -30,7 +30,8 @@ export const Route = createFileRoute("/playbooks/$slug")({
 });
 
 function PlaybookDetail() {
-  const { playbook } = Route.useLoaderData();
+  const { playbook } = Route.useLoaderData() as { playbook: Playbook };
+
 
   return (
     <AppShell title={`${playbook.name} playbook`} subtitle={playbook.tagline}>
