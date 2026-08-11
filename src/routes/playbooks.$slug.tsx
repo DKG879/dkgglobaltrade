@@ -2,7 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { AlertTriangle, ArrowLeft, FileText } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 import { Button } from "@/components/ui/button";
-import { getPlaybook, playbooks } from "@/lib/playbooks";
+import { getPlaybook, playbooks, type Playbook } from "@/lib/playbooks";
 
 export const Route = createFileRoute("/playbooks/$slug")({
   loader: ({ params }) => {
