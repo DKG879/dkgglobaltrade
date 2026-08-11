@@ -14,7 +14,185 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      counterparties: {
+        Row: {
+          commodities: string | null
+          company: string | null
+          country: string | null
+          created_at: string
+          email: string | null
+          id: string
+          name: string
+          notes: string | null
+          phone: string | null
+          role: string
+          trust_level: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          commodities?: string | null
+          company?: string | null
+          country?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          name: string
+          notes?: string | null
+          phone?: string | null
+          role?: string
+          trust_level?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          commodities?: string | null
+          company?: string | null
+          country?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          name?: string
+          notes?: string | null
+          phone?: string | null
+          role?: string
+          trust_level?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      deal_steps: {
+        Row: {
+          created_at: string
+          deal_id: string
+          detail: string | null
+          done: boolean
+          id: string
+          label: string
+          owner_role: string | null
+          step_order: number
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          deal_id: string
+          detail?: string | null
+          done?: boolean
+          id?: string
+          label: string
+          owner_role?: string | null
+          step_order?: number
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          deal_id?: string
+          detail?: string | null
+          done?: boolean
+          id?: string
+          label?: string
+          owner_role?: string | null
+          step_order?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "deal_steps_deal_id_fkey"
+            columns: ["deal_id"]
+            isOneToOne: false
+            referencedRelation: "deals"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      deals: {
+        Row: {
+          buyer_name: string | null
+          commodity: string
+          created_at: string
+          currency: string | null
+          destination: string | null
+          id: string
+          incoterm: string | null
+          notes: string | null
+          origin: string | null
+          price: number | null
+          quantity: number | null
+          seller_name: string | null
+          side: string
+          stage: string
+          target_date: string | null
+          title: string
+          unit: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          buyer_name?: string | null
+          commodity?: string
+          created_at?: string
+          currency?: string | null
+          destination?: string | null
+          id?: string
+          incoterm?: string | null
+          notes?: string | null
+          origin?: string | null
+          price?: number | null
+          quantity?: number | null
+          seller_name?: string | null
+          side?: string
+          stage?: string
+          target_date?: string | null
+          title: string
+          unit?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          buyer_name?: string | null
+          commodity?: string
+          created_at?: string
+          currency?: string | null
+          destination?: string | null
+          id?: string
+          incoterm?: string | null
+          notes?: string | null
+          origin?: string | null
+          price?: number | null
+          quantity?: number | null
+          seller_name?: string | null
+          side?: string
+          stage?: string
+          target_date?: string | null
+          title?: string
+          unit?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          company: string | null
+          created_at: string
+          full_name: string | null
+          id: string
+        }
+        Insert: {
+          company?: string | null
+          created_at?: string
+          full_name?: string | null
+          id: string
+        }
+        Update: {
+          company?: string | null
+          created_at?: string
+          full_name?: string | null
+          id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
