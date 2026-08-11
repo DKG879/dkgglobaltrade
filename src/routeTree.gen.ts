@@ -14,6 +14,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ContactsRouteImport } from './routes/contacts'
 import { Route as DealsIndexRouteImport } from './routes/deals.index'
 import { Route as DealsDealIdRouteImport } from './routes/deals.$dealId'
+import { Route as PlaybooksIndexRouteImport } from './routes/playbooks.index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -40,6 +41,11 @@ const DealsDealIdRoute = DealsDealIdRouteImport.update({
   path: '/deals/$dealId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PlaybooksIndexRoute = PlaybooksIndexRouteImport.update({
+  id: '/playbooks/',
+  path: '/playbooks/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -47,6 +53,7 @@ export interface FileRoutesByFullPath {
   '/contacts': typeof ContactsRoute
   '/deals/$dealId': typeof DealsDealIdRoute
   '/deals/': typeof DealsIndexRoute
+  '/playbooks/': typeof PlaybooksIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +61,7 @@ export interface FileRoutesByTo {
   '/contacts': typeof ContactsRoute
   '/deals/$dealId': typeof DealsDealIdRoute
   '/deals': typeof DealsIndexRoute
+  '/playbooks': typeof PlaybooksIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,13 +70,22 @@ export interface FileRoutesById {
   '/contacts': typeof ContactsRoute
   '/deals/$dealId': typeof DealsDealIdRoute
   '/deals/': typeof DealsIndexRoute
+  '/playbooks/': typeof PlaybooksIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/contacts' | '/deals/$dealId' | '/deals/'
+  fullPaths:
+    '/' | '/auth' | '/contacts' | '/deals/$dealId' | '/deals/' | '/playbooks/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/contacts' | '/deals/$dealId' | '/deals'
-  id: '__root__' | '/' | '/auth' | '/contacts' | '/deals/$dealId' | '/deals/'
+  to: '/' | '/auth' | '/contacts' | '/deals/$dealId' | '/deals' | '/playbooks'
+  id:
+    | '__root__'
+    | '/'
+    | '/auth'
+    | '/contacts'
+    | '/deals/$dealId'
+    | '/deals/'
+    | '/playbooks/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -77,6 +94,7 @@ export interface RootRouteChildren {
   ContactsRoute: typeof ContactsRoute
   DealsDealIdRoute: typeof DealsDealIdRoute
   DealsIndexRoute: typeof DealsIndexRoute
+  PlaybooksIndexRoute: typeof PlaybooksIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -116,6 +134,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DealsDealIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/playbooks/': {
+      id: '/playbooks/'
+      path: '/playbooks'
+      fullPath: '/playbooks/'
+      preLoaderRoute: typeof PlaybooksIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -125,6 +150,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactsRoute: ContactsRoute,
   DealsDealIdRoute: DealsDealIdRoute,
   DealsIndexRoute: DealsIndexRoute,
+  PlaybooksIndexRoute: PlaybooksIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
