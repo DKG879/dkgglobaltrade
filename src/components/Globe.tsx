@@ -21,15 +21,17 @@ export function Globe({ className = "" }: { className?: string }) {
         style={{ background: "var(--gradient-ocean)" }}
         aria-hidden
       />
+      <div
+        className="absolute inset-[8%] rounded-full border border-accent/40"
+        style={{
+          background:
+            "radial-gradient(circle at 32% 28%, color-mix(in oklab, var(--teal) 35%, transparent), color-mix(in oklab, var(--background) 88%, transparent) 62%)",
+          boxShadow: "inset 0 0 60px color-mix(in oklab, var(--background) 80%, transparent)",
+        }}
+        aria-hidden
+      />
       <div className="globe-sphere absolute inset-[8%]" aria-hidden>
-        <div
-          className="absolute inset-0 rounded-full border border-accent/40"
-          style={{
-            background:
-              "radial-gradient(circle at 32% 28%, color-mix(in oklab, var(--teal) 35%, transparent), color-mix(in oklab, var(--background) 88%, transparent) 62%)",
-            boxShadow: "inset 0 0 60px color-mix(in oklab, var(--background) 80%, transparent)",
-          }}
-        />
+
         {[0, 22.5, 45, 67.5, 90, 112.5, 135, 157.5].map((deg) => (
           <div key={deg} className="globe-ring" style={{ transform: `rotateY(${deg}deg)` }} />
         ))}
