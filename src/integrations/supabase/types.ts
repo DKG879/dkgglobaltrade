@@ -62,6 +62,60 @@ export type Database = {
         }
         Relationships: []
       }
+      counterparty_submissions: {
+        Row: {
+          broker_user_id: string
+          commodities: string | null
+          company: string | null
+          country: string | null
+          created_at: string
+          email: string | null
+          id: string
+          message: string | null
+          name: string
+          phone: string | null
+          reviewed_at: string | null
+          role: string
+          status: string
+          updated_at: string
+          website: string | null
+        }
+        Insert: {
+          broker_user_id: string
+          commodities?: string | null
+          company?: string | null
+          country?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          message?: string | null
+          name: string
+          phone?: string | null
+          reviewed_at?: string | null
+          role?: string
+          status?: string
+          updated_at?: string
+          website?: string | null
+        }
+        Update: {
+          broker_user_id?: string
+          commodities?: string | null
+          company?: string | null
+          country?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          message?: string | null
+          name?: string
+          phone?: string | null
+          reviewed_at?: string | null
+          role?: string
+          status?: string
+          updated_at?: string
+          website?: string | null
+        }
+        Relationships: []
+      }
       deal_steps: {
         Row: {
           created_at: string
