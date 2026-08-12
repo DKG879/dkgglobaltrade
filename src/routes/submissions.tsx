@@ -232,7 +232,7 @@ function SubmissionsView() {
   );
 }
 
-function IntakeLinkCard({ userId }: { userId?: string }) {
+function IntakeLinkCard({ userId }: { userId?: string | undefined }) {
   const [copied, setCopied] = useState(false);
   if (!userId) return null;
   const origin = typeof window === "undefined" ? "" : window.location.origin;
