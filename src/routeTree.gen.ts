@@ -14,6 +14,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ContactsRouteImport } from './routes/contacts'
 import { Route as DealsIndexRouteImport } from './routes/deals.index'
 import { Route as DealsDealIdRouteImport } from './routes/deals.$dealId'
+import { Route as IntakeBrokerIdRouteImport } from './routes/intake.$brokerId'
 import { Route as PlaybooksIndexRouteImport } from './routes/playbooks.index'
 import { Route as PlaybooksSlugRouteImport } from './routes/playbooks.$slug'
 
@@ -42,6 +43,11 @@ const DealsDealIdRoute = DealsDealIdRouteImport.update({
   path: '/deals/$dealId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const IntakeBrokerIdRoute = IntakeBrokerIdRouteImport.update({
+  id: '/intake/$brokerId',
+  path: '/intake/$brokerId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PlaybooksIndexRoute = PlaybooksIndexRouteImport.update({
   id: '/playbooks/',
   path: '/playbooks/',
@@ -58,6 +64,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/contacts': typeof ContactsRoute
   '/deals/$dealId': typeof DealsDealIdRoute
+  '/intake/$brokerId': typeof IntakeBrokerIdRoute
   '/playbooks/$slug': typeof PlaybooksSlugRoute
   '/deals/': typeof DealsIndexRoute
   '/playbooks/': typeof PlaybooksIndexRoute
@@ -67,6 +74,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/contacts': typeof ContactsRoute
   '/deals/$dealId': typeof DealsDealIdRoute
+  '/intake/$brokerId': typeof IntakeBrokerIdRoute
   '/playbooks/$slug': typeof PlaybooksSlugRoute
   '/deals': typeof DealsIndexRoute
   '/playbooks': typeof PlaybooksIndexRoute
@@ -77,6 +85,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/contacts': typeof ContactsRoute
   '/deals/$dealId': typeof DealsDealIdRoute
+  '/intake/$brokerId': typeof IntakeBrokerIdRoute
   '/playbooks/$slug': typeof PlaybooksSlugRoute
   '/deals/': typeof DealsIndexRoute
   '/playbooks/': typeof PlaybooksIndexRoute
@@ -88,6 +97,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/contacts'
     | '/deals/$dealId'
+    | '/intake/$brokerId'
     | '/playbooks/$slug'
     | '/deals/'
     | '/playbooks/'
@@ -97,6 +107,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/contacts'
     | '/deals/$dealId'
+    | '/intake/$brokerId'
     | '/playbooks/$slug'
     | '/deals'
     | '/playbooks'
@@ -106,6 +117,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/contacts'
     | '/deals/$dealId'
+    | '/intake/$brokerId'
     | '/playbooks/$slug'
     | '/deals/'
     | '/playbooks/'
@@ -116,6 +128,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   ContactsRoute: typeof ContactsRoute
   DealsDealIdRoute: typeof DealsDealIdRoute
+  IntakeBrokerIdRoute: typeof IntakeBrokerIdRoute
   PlaybooksSlugRoute: typeof PlaybooksSlugRoute
   DealsIndexRoute: typeof DealsIndexRoute
   PlaybooksIndexRoute: typeof PlaybooksIndexRoute
@@ -158,6 +171,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DealsDealIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/intake/$brokerId': {
+      id: '/intake/$brokerId'
+      path: '/intake/$brokerId'
+      fullPath: '/intake/$brokerId'
+      preLoaderRoute: typeof IntakeBrokerIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/playbooks/': {
       id: '/playbooks/'
       path: '/playbooks'
@@ -180,6 +200,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   ContactsRoute: ContactsRoute,
   DealsDealIdRoute: DealsDealIdRoute,
+  IntakeBrokerIdRoute: IntakeBrokerIdRoute,
   PlaybooksSlugRoute: PlaybooksSlugRoute,
   DealsIndexRoute: DealsIndexRoute,
   PlaybooksIndexRoute: PlaybooksIndexRoute,
@@ -187,13 +208,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
