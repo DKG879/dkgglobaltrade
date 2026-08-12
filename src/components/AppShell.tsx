@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { Anchor, Ship, Users, BookOpen, LogOut } from "lucide-react";
+import { Anchor, Ship, Users, BookOpen, Inbox, LogOut } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
@@ -9,6 +9,7 @@ const nav = [
   { to: "/deals", label: "Deals", icon: Ship },
   { to: "/contacts", label: "Counterparties", icon: Users },
   { to: "/playbooks", label: "Playbooks", icon: BookOpen },
+  { to: "/submissions", label: "Intake", icon: Inbox },
 ] as const;
 
 export function AppShell({

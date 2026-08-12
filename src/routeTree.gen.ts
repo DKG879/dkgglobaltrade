@@ -12,8 +12,10 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ContactsRouteImport } from './routes/contacts'
+import { Route as SubmissionsRouteImport } from './routes/submissions'
 import { Route as DealsIndexRouteImport } from './routes/deals.index'
 import { Route as DealsDealIdRouteImport } from './routes/deals.$dealId'
+import { Route as IntakeBrokerIdRouteImport } from './routes/intake.$brokerId'
 import { Route as PlaybooksIndexRouteImport } from './routes/playbooks.index'
 import { Route as PlaybooksSlugRouteImport } from './routes/playbooks.$slug'
 
@@ -32,6 +34,11 @@ const ContactsRoute = ContactsRouteImport.update({
   path: '/contacts',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SubmissionsRoute = SubmissionsRouteImport.update({
+  id: '/submissions',
+  path: '/submissions',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DealsIndexRoute = DealsIndexRouteImport.update({
   id: '/deals/',
   path: '/deals/',
@@ -40,6 +47,11 @@ const DealsIndexRoute = DealsIndexRouteImport.update({
 const DealsDealIdRoute = DealsDealIdRouteImport.update({
   id: '/deals/$dealId',
   path: '/deals/$dealId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IntakeBrokerIdRoute = IntakeBrokerIdRouteImport.update({
+  id: '/intake/$brokerId',
+  path: '/intake/$brokerId',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PlaybooksIndexRoute = PlaybooksIndexRouteImport.update({
@@ -57,7 +69,9 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/contacts': typeof ContactsRoute
+  '/submissions': typeof SubmissionsRoute
   '/deals/$dealId': typeof DealsDealIdRoute
+  '/intake/$brokerId': typeof IntakeBrokerIdRoute
   '/playbooks/$slug': typeof PlaybooksSlugRoute
   '/deals/': typeof DealsIndexRoute
   '/playbooks/': typeof PlaybooksIndexRoute
@@ -66,7 +80,9 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/contacts': typeof ContactsRoute
+  '/submissions': typeof SubmissionsRoute
   '/deals/$dealId': typeof DealsDealIdRoute
+  '/intake/$brokerId': typeof IntakeBrokerIdRoute
   '/playbooks/$slug': typeof PlaybooksSlugRoute
   '/deals': typeof DealsIndexRoute
   '/playbooks': typeof PlaybooksIndexRoute
@@ -76,7 +92,9 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/contacts': typeof ContactsRoute
+  '/submissions': typeof SubmissionsRoute
   '/deals/$dealId': typeof DealsDealIdRoute
+  '/intake/$brokerId': typeof IntakeBrokerIdRoute
   '/playbooks/$slug': typeof PlaybooksSlugRoute
   '/deals/': typeof DealsIndexRoute
   '/playbooks/': typeof PlaybooksIndexRoute
@@ -87,7 +105,9 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/contacts'
+    | '/submissions'
     | '/deals/$dealId'
+    | '/intake/$brokerId'
     | '/playbooks/$slug'
     | '/deals/'
     | '/playbooks/'
@@ -96,7 +116,9 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/contacts'
+    | '/submissions'
     | '/deals/$dealId'
+    | '/intake/$brokerId'
     | '/playbooks/$slug'
     | '/deals'
     | '/playbooks'
@@ -105,7 +127,9 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/contacts'
+    | '/submissions'
     | '/deals/$dealId'
+    | '/intake/$brokerId'
     | '/playbooks/$slug'
     | '/deals/'
     | '/playbooks/'
@@ -115,7 +139,9 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRoute
   ContactsRoute: typeof ContactsRoute
+  SubmissionsRoute: typeof SubmissionsRoute
   DealsDealIdRoute: typeof DealsDealIdRoute
+  IntakeBrokerIdRoute: typeof IntakeBrokerIdRoute
   PlaybooksSlugRoute: typeof PlaybooksSlugRoute
   DealsIndexRoute: typeof DealsIndexRoute
   PlaybooksIndexRoute: typeof PlaybooksIndexRoute
@@ -144,6 +170,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/submissions': {
+      id: '/submissions'
+      path: '/submissions'
+      fullPath: '/submissions'
+      preLoaderRoute: typeof SubmissionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/deals/': {
       id: '/deals/'
       path: '/deals'
@@ -156,6 +189,13 @@ declare module '@tanstack/react-router' {
       path: '/deals/$dealId'
       fullPath: '/deals/$dealId'
       preLoaderRoute: typeof DealsDealIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/intake/$brokerId': {
+      id: '/intake/$brokerId'
+      path: '/intake/$brokerId'
+      fullPath: '/intake/$brokerId'
+      preLoaderRoute: typeof IntakeBrokerIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/playbooks/': {
@@ -179,7 +219,9 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRoute,
   ContactsRoute: ContactsRoute,
+  SubmissionsRoute: SubmissionsRoute,
   DealsDealIdRoute: DealsDealIdRoute,
+  IntakeBrokerIdRoute: IntakeBrokerIdRoute,
   PlaybooksSlugRoute: PlaybooksSlugRoute,
   DealsIndexRoute: DealsIndexRoute,
   PlaybooksIndexRoute: PlaybooksIndexRoute,
@@ -187,13 +229,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
