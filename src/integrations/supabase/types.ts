@@ -14,6 +14,294 @@ export type Database = {
   }
   public: {
     Tables: {
+      commodities: {
+        Row: {
+          active: boolean
+          category: string
+          created_at: string
+          description: string | null
+          hs_code: string | null
+          id: string
+          name: string
+          slug: string
+          sub_category: string | null
+          unit: string
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          category?: string
+          created_at?: string
+          description?: string | null
+          hs_code?: string | null
+          id?: string
+          name: string
+          slug: string
+          sub_category?: string | null
+          unit?: string
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          category?: string
+          created_at?: string
+          description?: string | null
+          hs_code?: string | null
+          id?: string
+          name?: string
+          slug?: string
+          sub_category?: string | null
+          unit?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      commodity_specifications: {
+        Row: {
+          commodity_id: string
+          created_at: string
+          id: string
+          is_template: boolean
+          name: string
+          notes: string | null
+          spec: Json
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          commodity_id: string
+          created_at?: string
+          id?: string
+          is_template?: boolean
+          name: string
+          notes?: string | null
+          spec?: Json
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          commodity_id?: string
+          created_at?: string
+          id?: string
+          is_template?: boolean
+          name?: string
+          notes?: string | null
+          spec?: Json
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "commodity_specifications_commodity_id_fkey"
+            columns: ["commodity_id"]
+            isOneToOne: false
+            referencedRelation: "commodities"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      companies: {
+        Row: {
+          address: string | null
+          city: string | null
+          company_type: string
+          country: string | null
+          created_at: string
+          description: string | null
+          id: string
+          industry: string | null
+          legacy_counterparty_id: string | null
+          legal_name: string
+          registration_number: string | null
+          risk_level: string
+          status: string
+          tax_number: string | null
+          trading_name: string | null
+          updated_at: string
+          user_id: string
+          verification_status: string
+          website: string | null
+        }
+        Insert: {
+          address?: string | null
+          city?: string | null
+          company_type?: string
+          country?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          industry?: string | null
+          legacy_counterparty_id?: string | null
+          legal_name: string
+          registration_number?: string | null
+          risk_level?: string
+          status?: string
+          tax_number?: string | null
+          trading_name?: string | null
+          updated_at?: string
+          user_id: string
+          verification_status?: string
+          website?: string | null
+        }
+        Update: {
+          address?: string | null
+          city?: string | null
+          company_type?: string
+          country?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          industry?: string | null
+          legacy_counterparty_id?: string | null
+          legal_name?: string
+          registration_number?: string | null
+          risk_level?: string
+          status?: string
+          tax_number?: string | null
+          trading_name?: string | null
+          updated_at?: string
+          user_id?: string
+          verification_status?: string
+          website?: string | null
+        }
+        Relationships: []
+      }
+      company_commodities: {
+        Row: {
+          commodity_id: string
+          company_id: string
+          created_at: string
+          id: string
+          side: string
+          user_id: string
+        }
+        Insert: {
+          commodity_id: string
+          company_id: string
+          created_at?: string
+          id?: string
+          side?: string
+          user_id: string
+        }
+        Update: {
+          commodity_id?: string
+          company_id?: string
+          created_at?: string
+          id?: string
+          side?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "company_commodities_commodity_id_fkey"
+            columns: ["commodity_id"]
+            isOneToOne: false
+            referencedRelation: "commodities"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "company_commodities_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      company_roles: {
+        Row: {
+          company_id: string
+          created_at: string
+          id: string
+          role: string
+          user_id: string
+        }
+        Insert: {
+          company_id: string
+          created_at?: string
+          id?: string
+          role: string
+          user_id: string
+        }
+        Update: {
+          company_id?: string
+          created_at?: string
+          id?: string
+          role?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "company_roles_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      contacts: {
+        Row: {
+          company_id: string | null
+          country: string | null
+          created_at: string
+          department: string | null
+          email: string | null
+          full_name: string
+          id: string
+          job_title: string | null
+          notes: string | null
+          phone: string | null
+          preferred_language: string | null
+          status: string
+          updated_at: string
+          user_id: string
+          whatsapp: string | null
+        }
+        Insert: {
+          company_id?: string | null
+          country?: string | null
+          created_at?: string
+          department?: string | null
+          email?: string | null
+          full_name: string
+          id?: string
+          job_title?: string | null
+          notes?: string | null
+          phone?: string | null
+          preferred_language?: string | null
+          status?: string
+          updated_at?: string
+          user_id: string
+          whatsapp?: string | null
+        }
+        Update: {
+          company_id?: string | null
+          country?: string | null
+          created_at?: string
+          department?: string | null
+          email?: string | null
+          full_name?: string
+          id?: string
+          job_title?: string | null
+          notes?: string | null
+          phone?: string | null
+          preferred_language?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string
+          whatsapp?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "contacts_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       counterparties: {
         Row: {
           commodities: string | null
@@ -162,20 +450,30 @@ export type Database = {
       }
       deals: {
         Row: {
+          buyer_company_id: string | null
           buyer_name: string | null
           commodity: string
+          commodity_id: string | null
           created_at: string
           currency: string | null
+          delivery_window: string | null
           destination: string | null
           id: string
           incoterm: string | null
+          match_score: number | null
           notes: string | null
           origin: string | null
+          owner_id: string | null
+          payment_terms: string | null
           price: number | null
+          price_formula: string | null
           quantity: number | null
+          risk_level: string
+          seller_company_id: string | null
           seller_name: string | null
           side: string
           stage: string
+          status: string
           target_date: string | null
           title: string
           unit: string | null
@@ -183,20 +481,30 @@ export type Database = {
           user_id: string
         }
         Insert: {
+          buyer_company_id?: string | null
           buyer_name?: string | null
           commodity?: string
+          commodity_id?: string | null
           created_at?: string
           currency?: string | null
+          delivery_window?: string | null
           destination?: string | null
           id?: string
           incoterm?: string | null
+          match_score?: number | null
           notes?: string | null
           origin?: string | null
+          owner_id?: string | null
+          payment_terms?: string | null
           price?: number | null
+          price_formula?: string | null
           quantity?: number | null
+          risk_level?: string
+          seller_company_id?: string | null
           seller_name?: string | null
           side?: string
           stage?: string
+          status?: string
           target_date?: string | null
           title: string
           unit?: string | null
@@ -204,27 +512,59 @@ export type Database = {
           user_id: string
         }
         Update: {
+          buyer_company_id?: string | null
           buyer_name?: string | null
           commodity?: string
+          commodity_id?: string | null
           created_at?: string
           currency?: string | null
+          delivery_window?: string | null
           destination?: string | null
           id?: string
           incoterm?: string | null
+          match_score?: number | null
           notes?: string | null
           origin?: string | null
+          owner_id?: string | null
+          payment_terms?: string | null
           price?: number | null
+          price_formula?: string | null
           quantity?: number | null
+          risk_level?: string
+          seller_company_id?: string | null
           seller_name?: string | null
           side?: string
           stage?: string
+          status?: string
           target_date?: string | null
           title?: string
           unit?: string | null
           updated_at?: string
           user_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "deals_buyer_company_id_fkey"
+            columns: ["buyer_company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "deals_commodity_id_fkey"
+            columns: ["commodity_id"]
+            isOneToOne: false
+            referencedRelation: "commodities"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "deals_seller_company_id_fkey"
+            columns: ["seller_company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profiles: {
         Row: {
@@ -247,15 +587,49 @@ export type Database = {
         }
         Relationships: []
       }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role:
+        | "admin"
+        | "broker"
+        | "sales"
+        | "compliance"
+        | "operations"
+        | "finance"
+        | "viewer"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -382,6 +756,16 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: [
+        "admin",
+        "broker",
+        "sales",
+        "compliance",
+        "operations",
+        "finance",
+        "viewer",
+      ],
+    },
   },
 } as const
