@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ContactsRouteImport } from './routes/contacts'
 import { Route as SubmissionsRouteImport } from './routes/submissions'
+import { Route as CompaniesIndexRouteImport } from './routes/companies.index'
 import { Route as DealsIndexRouteImport } from './routes/deals.index'
 import { Route as DealsDealIdRouteImport } from './routes/deals.$dealId'
 import { Route as IntakeBrokerIdRouteImport } from './routes/intake.$brokerId'
@@ -37,6 +38,11 @@ const ContactsRoute = ContactsRouteImport.update({
 const SubmissionsRoute = SubmissionsRouteImport.update({
   id: '/submissions',
   path: '/submissions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CompaniesIndexRoute = CompaniesIndexRouteImport.update({
+  id: '/companies/',
+  path: '/companies/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DealsIndexRoute = DealsIndexRouteImport.update({
@@ -73,6 +79,7 @@ export interface FileRoutesByFullPath {
   '/deals/$dealId': typeof DealsDealIdRoute
   '/intake/$brokerId': typeof IntakeBrokerIdRoute
   '/playbooks/$slug': typeof PlaybooksSlugRoute
+  '/companies/': typeof CompaniesIndexRoute
   '/deals/': typeof DealsIndexRoute
   '/playbooks/': typeof PlaybooksIndexRoute
 }
@@ -84,6 +91,7 @@ export interface FileRoutesByTo {
   '/deals/$dealId': typeof DealsDealIdRoute
   '/intake/$brokerId': typeof IntakeBrokerIdRoute
   '/playbooks/$slug': typeof PlaybooksSlugRoute
+  '/companies': typeof CompaniesIndexRoute
   '/deals': typeof DealsIndexRoute
   '/playbooks': typeof PlaybooksIndexRoute
 }
@@ -96,6 +104,7 @@ export interface FileRoutesById {
   '/deals/$dealId': typeof DealsDealIdRoute
   '/intake/$brokerId': typeof IntakeBrokerIdRoute
   '/playbooks/$slug': typeof PlaybooksSlugRoute
+  '/companies/': typeof CompaniesIndexRoute
   '/deals/': typeof DealsIndexRoute
   '/playbooks/': typeof PlaybooksIndexRoute
 }
@@ -109,6 +118,7 @@ export interface FileRouteTypes {
     | '/deals/$dealId'
     | '/intake/$brokerId'
     | '/playbooks/$slug'
+    | '/companies/'
     | '/deals/'
     | '/playbooks/'
   fileRoutesByTo: FileRoutesByTo
@@ -120,6 +130,7 @@ export interface FileRouteTypes {
     | '/deals/$dealId'
     | '/intake/$brokerId'
     | '/playbooks/$slug'
+    | '/companies'
     | '/deals'
     | '/playbooks'
   id:
@@ -131,6 +142,7 @@ export interface FileRouteTypes {
     | '/deals/$dealId'
     | '/intake/$brokerId'
     | '/playbooks/$slug'
+    | '/companies/'
     | '/deals/'
     | '/playbooks/'
   fileRoutesById: FileRoutesById
@@ -143,6 +155,7 @@ export interface RootRouteChildren {
   DealsDealIdRoute: typeof DealsDealIdRoute
   IntakeBrokerIdRoute: typeof IntakeBrokerIdRoute
   PlaybooksSlugRoute: typeof PlaybooksSlugRoute
+  CompaniesIndexRoute: typeof CompaniesIndexRoute
   DealsIndexRoute: typeof DealsIndexRoute
   PlaybooksIndexRoute: typeof PlaybooksIndexRoute
 }
@@ -175,6 +188,13 @@ declare module '@tanstack/react-router' {
       path: '/submissions'
       fullPath: '/submissions'
       preLoaderRoute: typeof SubmissionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/companies/': {
+      id: '/companies/'
+      path: '/companies'
+      fullPath: '/companies/'
+      preLoaderRoute: typeof CompaniesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/deals/': {
@@ -223,6 +243,7 @@ const rootRouteChildren: RootRouteChildren = {
   DealsDealIdRoute: DealsDealIdRoute,
   IntakeBrokerIdRoute: IntakeBrokerIdRoute,
   PlaybooksSlugRoute: PlaybooksSlugRoute,
+  CompaniesIndexRoute: CompaniesIndexRoute,
   DealsIndexRoute: DealsIndexRoute,
   PlaybooksIndexRoute: PlaybooksIndexRoute,
 }
