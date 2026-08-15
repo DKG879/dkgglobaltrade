@@ -127,7 +127,7 @@ function CompanyProfile() {
   });
 
   const updateCompany = useMutation({
-    mutationFn: async (patch: Record<string, string | null>) => {
+    mutationFn: async (patch: TablesUpdate<"companies">) => {
       const { error } = await supabase.from("companies").update(patch).eq("id", companyId);
       if (error) throw error;
     },
