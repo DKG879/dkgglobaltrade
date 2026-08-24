@@ -52,17 +52,29 @@ function AuthPage() {
           },
         });
         if (error) throw error;
-        toast.success("Account created. Check your inbox if confirmation is required.");
+        toast.success("Account created. Signing you in…");
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
       }
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Authentication failed");
+      const raw = err instanceof Error ? err.message : "Authentication failed";
+      if (/invalid login credentials/i.test(raw)) {
+        toast.error(
+          "Email or password is wrong. If you never finished creating an account, use “Create one” below.",
+        );
+      } else if (/already registered|already been registered/i.test(raw)) {
+        toast.error("That email already has an account — switch to Sign in.");
+      } else if (/weak|pwned|compromised/i.test(raw)) {
+        toast.error("Please choose a stronger password (8+ characters, mix letters and numbers).");
+      } else {
+        toast.error(raw);
+      }
     } finally {
       setBusy(false);
     }
   };
+
 
   const google = async () => {
     const result = await lovable.auth.signInWithOAuth("google", {
