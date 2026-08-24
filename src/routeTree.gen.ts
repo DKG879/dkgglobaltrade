@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ContactsRouteImport } from './routes/contacts'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as SubmissionsRouteImport } from './routes/submissions'
 import { Route as CompaniesIndexRouteImport } from './routes/companies.index'
 import { Route as CompaniesCompanyIdRouteImport } from './routes/companies.$companyId'
@@ -34,6 +35,11 @@ const AuthRoute = AuthRouteImport.update({
 const ContactsRoute = ContactsRouteImport.update({
   id: '/contacts',
   path: '/contacts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SubmissionsRoute = SubmissionsRouteImport.update({
@@ -81,6 +87,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/contacts': typeof ContactsRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/submissions': typeof SubmissionsRoute
   '/companies/$companyId': typeof CompaniesCompanyIdRoute
   '/deals/$dealId': typeof DealsDealIdRoute
@@ -94,6 +101,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/contacts': typeof ContactsRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/submissions': typeof SubmissionsRoute
   '/companies/$companyId': typeof CompaniesCompanyIdRoute
   '/deals/$dealId': typeof DealsDealIdRoute
@@ -108,6 +116,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/contacts': typeof ContactsRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/submissions': typeof SubmissionsRoute
   '/companies/$companyId': typeof CompaniesCompanyIdRoute
   '/deals/$dealId': typeof DealsDealIdRoute
@@ -123,6 +132,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/contacts'
+    | '/reset-password'
     | '/submissions'
     | '/companies/$companyId'
     | '/deals/$dealId'
@@ -136,6 +146,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/contacts'
+    | '/reset-password'
     | '/submissions'
     | '/companies/$companyId'
     | '/deals/$dealId'
@@ -149,6 +160,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/contacts'
+    | '/reset-password'
     | '/submissions'
     | '/companies/$companyId'
     | '/deals/$dealId'
@@ -163,6 +175,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRoute
   ContactsRoute: typeof ContactsRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   SubmissionsRoute: typeof SubmissionsRoute
   CompaniesCompanyIdRoute: typeof CompaniesCompanyIdRoute
   DealsDealIdRoute: typeof DealsDealIdRoute
@@ -194,6 +207,13 @@ declare module '@tanstack/react-router' {
       path: '/contacts'
       fullPath: '/contacts'
       preLoaderRoute: typeof ContactsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/submissions': {
@@ -259,6 +279,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRoute,
   ContactsRoute: ContactsRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   SubmissionsRoute: SubmissionsRoute,
   CompaniesCompanyIdRoute: CompaniesCompanyIdRoute,
   DealsDealIdRoute: DealsDealIdRoute,
