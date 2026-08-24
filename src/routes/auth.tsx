@@ -172,10 +172,17 @@ function AuthPage() {
                   return;
                 }
                 const { error } = await supabase.auth.resetPasswordForEmail(email, {
-                  redirectTo: window.location.origin,
+                  redirectTo: `${window.location.origin}/reset-password`,
                 });
-                if (error) toast.error(error.message);
-                else toast.success("Password reset link sent to your email.");
+                if (error) {
+                  if (/rate limit|over_email_send_rate_limit/i.test(error.message)) {
+                    toast.error("Too many reset emails just now — wait a minute and try again.");
+                  } else {
+                    toast.error(error.message);
+                  }
+                } else {
+                  toast.success(`Secure reset link sent to ${email}. Check your inbox and spam folder.`);
+                }
               }}
             >
               Forgot your password?
